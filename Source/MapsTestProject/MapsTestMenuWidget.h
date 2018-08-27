@@ -30,17 +30,17 @@ protected:
 private:
 
 	/**
-	* Create dummy map options structure with hardcoded values
+	* Create dummy map options structure with hardcoded values.
 	*/
 	FGoogleMapOptions InitMapOptions();
 
 	/**
-	* Get bounds of specified widget
-	* @return - pair of vectors with widget bounds (key - widget position in viewport, value - widget size)
+	* Get bounds of specified widget.
+	* @return - pair of vectors with widget bounds (key - widget position in viewport, value - widget size).
 	*/
 	TPair<FVector2D, FVector2D> GetWidgetBounds(UWidget* widget);
 
-	/** Reference to map view interface */
+	/** Reference to map view interface. */
 	TScriptInterface<IUnrealMapsViewInterface> MapView;
 
 	/** 
@@ -49,6 +49,9 @@ private:
 	*/
 	bool IsMapViewExist;
 
+	/**
+	* Handle ONMapReady callback.
+	*/
 	UFUNCTION()
 	void OnMapViewReady();
 };
