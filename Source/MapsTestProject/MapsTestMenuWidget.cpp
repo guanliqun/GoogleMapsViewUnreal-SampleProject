@@ -21,6 +21,9 @@ void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 	// set up map view flag
 	IsMapViewExist = true;
 
+	// sign up for map view events
+	MapView->GetCallbackProxy()->OnMapReadyDynamicDelegate.AddDynamic(this, &UMapsTestMenuWidget::OnMapViewReady);
+
 	auto MapViewArea = WidgetTree->FindWidget(FName("MapViewArea"));
 	if (MapViewArea)
 	{
@@ -106,4 +109,9 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 	Bounds.Value = Geometry.GetLocalSize();
 
 	return Bounds;
+}
+
+void UMapsTestMenuWidget::OnMapViewReady()
+{
+	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => MAP READY CALLBACK!"));
 }

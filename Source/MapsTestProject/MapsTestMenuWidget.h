@@ -48,4 +48,7 @@ private:
 	* Can be removed to allow creation of multiple map views.
 	*/
 	bool IsMapViewExist;
+
+	UFUNCTION()
+	void OnMapViewReady();
 };
