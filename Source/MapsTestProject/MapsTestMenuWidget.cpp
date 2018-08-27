@@ -5,47 +5,35 @@
 #include "Blueprint/SlateBlueprintLibrary.h"
 #include "UnrealMapsBlueprintLibrary.h"
 
-
 void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 {
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => UMapsTestMenuWidget::HandleCreateMapButtonClick()"));
-
 	if (IsMapViewExist)
 	{
 		return;
 	}
 
 	MapView = UUnrealMapsBlueprintLibrary::CreateMapsView();
-
 	if (!MapView.GetObject())
 	{
 		return;
 	}
 
+	// set up map view flag
 	IsMapViewExist = true;
 
-	auto mavViewArea = WidgetTree->FindWidget(FName("MapViewArea"));
-	if (mavViewArea)
+	auto MapViewArea = WidgetTree->FindWidget(FName("MapViewArea"));
+	if (MapViewArea)
 	{
 		// obtain map view area position and size
-		auto geometry = mavViewArea->GetCachedGeometry();
-
-		FVector2D LocalCoordinate(0.0f, 0.0f); FVector2D PixelPosition; FVector2D ViewportPosition;
-		USlateBlueprintLibrary::LocalToViewport(GetWorld(), geometry, LocalCoordinate, PixelPosition, ViewportPosition);
-
-		auto size = geometry.GetLocalSize();
-
-		UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => SHOW MAP x=%f y=%f w=%f h=%f"), ViewportPosition.X, ViewportPosition.Y, size.X, size.Y);
+		auto WidgetBounds = GetWidgetBounds(MapViewArea);
 
 		// show map view
-		MapView->Show(ViewportPosition.X, ViewportPosition.Y, size.X, size.Y, InitMapOptions());
+		MapView->Show(WidgetBounds.Key.X, WidgetBounds.Key.Y, WidgetBounds.Value.X, WidgetBounds.Value.Y, InitMapOptions());
 	}	
 }
 
 void UMapsTestMenuWidget::HandleShowMapButtonClick()
 {
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => UMapsTestMenuWidget::HandleShowMapButtonClick()"));
-
 	if (!MapView.GetObject())
 	{
 		return;
@@ -56,8 +44,6 @@ void UMapsTestMenuWidget::HandleShowMapButtonClick()
 
 void UMapsTestMenuWidget::HandleHideMapButtonClick()
 {
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => UMapsTestMenuWidget::HandleHideMapButtonClick()"));
-
 	if (!MapView.GetObject())
 	{
 		return;
@@ -68,8 +54,6 @@ void UMapsTestMenuWidget::HandleHideMapButtonClick()
 
 void UMapsTestMenuWidget::HandleDismissMapButtonClick()
 {
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => UMapsTestMenuWidget::HandleDismissMapButtonClick()"));
-
 	if (!MapView.GetObject())
 	{
 		return;
@@ -77,6 +61,7 @@ void UMapsTestMenuWidget::HandleDismissMapButtonClick()
 
 	MapView->Dismiss();
 
+	// reset map view flag
 	IsMapViewExist = false;
 }
 
@@ -103,4 +88,22 @@ FGoogleMapOptions UMapsTestMenuWidget::InitMapOptions()
 	GoogleMapOtions.MinZoomPreference = 1.0f;	
 
 	return GoogleMapOtions;
+}
+
+TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget)
+{
+	TPair<FVector2D, FVector2D> Bounds;
+
+	const FGeometry& Geometry = widget->GetCachedGeometry();
+
+	FVector2D LocalCoordinate(0.0f, 0.0f);
+	FVector2D PixelPosition;
+	FVector2D ViewportPosition;
+
+	USlateBlueprintLibrary::LocalToViewport(GetWorld(), Geometry, LocalCoordinate, PixelPosition, ViewportPosition);
+
+	Bounds.Key = ViewportPosition;
+	Bounds.Value = Geometry.GetLocalSize();
+
+	return Bounds;
 }

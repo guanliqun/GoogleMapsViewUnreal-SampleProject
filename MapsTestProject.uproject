@@ -17,12 +17,8 @@
 	"Plugins": [
 		{
 			"Name": "UnrealMaps",
-			"Enabled": true
-		},
-		{
-			"Name": "MobileUtils",
 			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/94e8f674898a4589882c283436190676"
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/f4deffb0770648fbb3d4e4d097d85947"
 		}
 	]
 }
