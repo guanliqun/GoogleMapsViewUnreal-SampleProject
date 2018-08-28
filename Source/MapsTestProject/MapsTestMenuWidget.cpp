@@ -113,5 +113,6 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 
 void UMapsTestMenuWidget::OnMapViewReady()
 {
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => MAP READY CALLBACK!"));
+	// Check logs to make sure that this callback works
+	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => MAP VIEW READY CALLBACK"));
 }

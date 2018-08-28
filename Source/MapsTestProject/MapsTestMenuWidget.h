@@ -50,7 +50,7 @@ private:
 	bool IsMapViewExist;
 
 	/**
-	* Handle ONMapReady callback.
+	* Handle OnMapReady callback.
 	*/
 	UFUNCTION()
 	void OnMapViewReady();
