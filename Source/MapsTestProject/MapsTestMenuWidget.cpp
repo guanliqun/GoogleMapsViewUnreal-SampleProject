@@ -97,16 +97,35 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 {
 	TPair<FVector2D, FVector2D> Bounds;
 
-	const FGeometry& Geometry = widget->GetCachedGeometry();
+	auto SizeBoxRoot = WidgetTree->FindWidget(FName("SizeBoxRoot"));
+	if (SizeBoxRoot)
+	{
+		// calculate coefficient to adjust widget position and size for high res screens
+		FVector2D NativeScreenSize = UUnrealMapsBlueprintLibrary::GetNativeScreenSize();
+		FVector2D SizeBoxSize = SizeBoxRoot->GetDesiredSize();
 
-	FVector2D LocalCoordinate(0.0f, 0.0f);
-	FVector2D PixelPosition;
-	FVector2D ViewportPosition;
+		auto MinScreenDimension = FMath::Min(NativeScreenSize.X, NativeScreenSize.Y);
+		auto MinSizeBoxDimension = FMath::Min(SizeBoxSize.X, SizeBoxSize.Y);
 
-	USlateBlueprintLibrary::LocalToViewport(GetWorld(), Geometry, LocalCoordinate, PixelPosition, ViewportPosition);
+		float ScaleCoefficient = MinScreenDimension / MinSizeBoxDimension;
 
-	Bounds.Key = ViewportPosition;
-	Bounds.Value = Geometry.GetLocalSize();
+		// obtain widget position and size
+		const FGeometry& Geometry = widget->GetCachedGeometry();
+		FVector2D LocalSize = Geometry.GetLocalSize();
+
+		FVector2D LocalCoordinate(0.0f, 0.0f);
+		FVector2D PixelPosition;
+		FVector2D ViewportPosition;
+
+		USlateBlueprintLibrary::LocalToViewport(GetWorld(), Geometry, LocalCoordinate, PixelPosition, ViewportPosition);
+
+		Bounds.Key.X = ViewportPosition.X * ScaleCoefficient;
+		Bounds.Key.Y = ViewportPosition.Y * ScaleCoefficient;
+		Bounds.Value.X = LocalSize.X * ScaleCoefficient;
+		Bounds.Value.Y = LocalSize.Y * ScaleCoefficient;
+
+		UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => X = %f, Y = %f, W = %f, H = %f"), Bounds.Key.X, Bounds.Key.Y, Bounds.Value.X, Bounds.Value.Y);
+	}
 
 	return Bounds;
 }
