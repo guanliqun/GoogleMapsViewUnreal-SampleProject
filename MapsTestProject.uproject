@@ -16,7 +16,7 @@
 	],
 	"Plugins": [
 		{
-			"Name": "UnrealMaps",
+			"Name": "GoogleMapsView",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/f4deffb0770648fbb3d4e4d097d85947"
 		},

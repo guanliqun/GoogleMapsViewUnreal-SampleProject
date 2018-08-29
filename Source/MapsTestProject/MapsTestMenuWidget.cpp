@@ -3,7 +3,7 @@
 #include "MapsTestMenuWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
-#include "UnrealMapsBlueprintLibrary.h"
+#include "GoogleMapsViewBlueprintLibrary.h"
 
 void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 {
@@ -12,7 +12,7 @@ void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 		return;
 	}
 
-	MapView = UUnrealMapsBlueprintLibrary::CreateMapsView();
+	MapView = UGoogleMapsViewBlueprintLibrary::CreateMapsView();
 	if (!MapView.GetObject())
 	{
 		return;
@@ -101,7 +101,7 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 	if (SizeBoxRoot)
 	{
 		// calculate coefficient to adjust widget position and size for high res screens
-		FVector2D NativeScreenSize = UUnrealMapsBlueprintLibrary::GetNativeScreenSize();
+		FVector2D NativeScreenSize = UGoogleMapsViewBlueprintLibrary::GetNativeScreenSize();
 		FVector2D SizeBoxSize = SizeBoxRoot->GetDesiredSize();
 
 		auto MinScreenDimension = FMath::Min(NativeScreenSize.X, NativeScreenSize.Y);
@@ -124,7 +124,7 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 		Bounds.Value.X = LocalSize.X * ScaleCoefficient;
 		Bounds.Value.Y = LocalSize.Y * ScaleCoefficient;
 
-		UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => X = %f, Y = %f, W = %f, H = %f"), Bounds.Key.X, Bounds.Key.Y, Bounds.Value.X, Bounds.Value.Y);
+		UE_LOG(LogTemp, Warning, TEXT("GOOGLEMAPSVIEW => X = %f, Y = %f, W = %f, H = %f"), Bounds.Key.X, Bounds.Key.Y, Bounds.Value.X, Bounds.Value.Y);
 	}
 
 	return Bounds;
@@ -133,5 +133,5 @@ TPair<FVector2D, FVector2D> UMapsTestMenuWidget::GetWidgetBounds(UWidget* widget
 void UMapsTestMenuWidget::OnMapViewReady()
 {
 	// Check logs to make sure that this callback works
-	UE_LOG(LogTemp, Warning, TEXT("UNREALMAPS => MAP VIEW READY CALLBACK"));
+	UE_LOG(LogTemp, Warning, TEXT("GOOGLEMAPSVIEW => MAP VIEW READY CALLBACK"));
 }

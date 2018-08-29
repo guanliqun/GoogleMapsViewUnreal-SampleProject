@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Interface/UnrealMapsViewInterface.h"
+#include "Interface/GoogleMapsViewInterface.h"
 #include "GoogleMapOptions.h"
 #include "MapsTestMenuWidget.generated.h"
 
@@ -15,16 +15,16 @@ class MAPSTESTPROJECT_API UMapsTestMenuWidget : public UUserWidget
 
 protected:
 
-	UFUNCTION(BlueprintCallable, Category="UnrealMaps")
+	UFUNCTION(BlueprintCallable, Category="GoogleMapsView")
 	void HandleCreateMapButtonClick();
 	
-	UFUNCTION(BlueprintCallable, Category = "UnrealMaps")
+	UFUNCTION(BlueprintCallable, Category = "GoogleMapsView")
 	void HandleShowMapButtonClick();
 
-	UFUNCTION(BlueprintCallable, Category = "UnrealMaps")
+	UFUNCTION(BlueprintCallable, Category = "GoogleMapsView")
 	void HandleHideMapButtonClick();
 
-	UFUNCTION(BlueprintCallable, Category = "UnrealMaps")
+	UFUNCTION(BlueprintCallable, Category = "GoogleMapsView")
 	void HandleDismissMapButtonClick();
 
 private:
@@ -41,7 +41,7 @@ private:
 	TPair<FVector2D, FVector2D> GetWidgetBounds(UWidget* widget);
 
 	/** Reference to map view interface. */
-	TScriptInterface<IUnrealMapsViewInterface> MapView;
+	TScriptInterface<IGoogleMapsViewInterface> MapView;
 
 	/** 
 	* Flag indicating if there is existing map view (used to allow only one map view in demo level).
