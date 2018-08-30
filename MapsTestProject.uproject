@@ -28,5 +28,8 @@
 			"Name": "OculusVR",
 			"Enabled": false
 		}
+	],
+	"TargetPlatforms": [
+		"Android"
 	]
 }
