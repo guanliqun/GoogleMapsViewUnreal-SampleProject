@@ -13,7 +13,7 @@ void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 	}
 
 	MapView = UGoogleMapsViewBlueprintLibrary::CreateMapsView();
-	if (!MapView.GetObject())
+	if (!MapView.GetObject()->IsValidLowLevel())
 	{
 		return;
 	}
@@ -37,7 +37,7 @@ void UMapsTestMenuWidget::HandleCreateMapButtonClick()
 
 void UMapsTestMenuWidget::HandleShowMapButtonClick()
 {
-	if (!MapView.GetObject())
+	if (!MapView.GetObject()->IsValidLowLevel())
 	{
 		return;
 	}
@@ -47,7 +47,7 @@ void UMapsTestMenuWidget::HandleShowMapButtonClick()
 
 void UMapsTestMenuWidget::HandleHideMapButtonClick()
 {
-	if (!MapView.GetObject())
+	if (!MapView.GetObject()->IsValidLowLevel())
 	{
 		return;
 	}
@@ -57,7 +57,7 @@ void UMapsTestMenuWidget::HandleHideMapButtonClick()
 
 void UMapsTestMenuWidget::HandleDismissMapButtonClick()
 {
-	if (!MapView.GetObject())
+	if (!MapView.GetObject()->IsValidLowLevel())
 	{
 		return;
 	}
