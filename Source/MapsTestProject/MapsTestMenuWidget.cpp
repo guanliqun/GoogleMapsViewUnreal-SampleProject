@@ -85,7 +85,7 @@ FGoogleMapOptions UMapsTestMenuWidget::InitMapOptions()
 
 	GoogleMapOtions.LiteMode = false;
 
-	GoogleMapOtions.MapType = GoogleMapType::Normal;
+	GoogleMapOtions.MapType = GoogleMapType::GMTNormal;
 
 	GoogleMapOtions.MaxZoomPreference = 16.0f;
 	GoogleMapOtions.MinZoomPreference = 1.0f;	
