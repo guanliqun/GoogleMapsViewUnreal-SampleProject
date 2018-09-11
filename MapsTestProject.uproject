@@ -3,7 +3,6 @@
 	"EngineAssociation": "4.20",
 	"Category": "",
 	"Description": "",
-	"Enterprise": true,
 	"Modules": [
 		{
 			"Name": "MapsTestProject",
