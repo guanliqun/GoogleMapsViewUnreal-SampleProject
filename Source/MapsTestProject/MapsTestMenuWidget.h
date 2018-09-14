@@ -15,6 +15,9 @@ class MAPSTESTPROJECT_API UMapsTestMenuWidget : public UUserWidget
 
 protected:
 
+	UFUNCTION(BlueprintCallable, Category = "GoogleMapsView")
+	void SetAPIKey();
+
 	UFUNCTION(BlueprintCallable, Category="GoogleMapsView")
 	void HandleCreateMapButtonClick();
 	
