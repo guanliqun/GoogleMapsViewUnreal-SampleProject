@@ -5,7 +5,7 @@
 #include "Blueprint/SlateBlueprintLibrary.h"
 #include "GoogleMapsViewBlueprintLibrary.h"
 
-void UMapsTestMenuWidget::SetAPIKey()
+void UMapsTestMenuWidget::SetGoogleAPIKey()
 {
 	UGoogleMapsViewBlueprintLibrary::SetAPIKey("YOUR_API_KEY_HERE");
 }
